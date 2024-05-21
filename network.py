@@ -1,3 +1,6 @@
+import numpy as np
+
+
 class Network:
     def __init__(self):
         self.layers = []
@@ -25,6 +28,10 @@ class Network:
             output = input_data[i]
             for layer in self.layers:
                 output = layer.forward_propagation(output)
+                if np.any(output > 0.5):
+                    output = 1
+                else:
+                    output = 0
             result.append(output)
 
         return result
