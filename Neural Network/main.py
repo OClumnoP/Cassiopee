@@ -5,6 +5,7 @@ from fc_layer import FCLayer
 from activation_layer import ActivationLayer
 from activations import relu, relu_prime, sig, sig_prime, tanh, tanh_prime
 from losses import bce, bce_prime
+
 from keras import utils
 
 import pandas as pd
@@ -39,7 +40,7 @@ x_test = x_test.reshape(x_test.shape[0], 1, 88)
 
 # Network
 net = Network()
-net.add(FCLayer(88, 64))  # input_shape=(1, 28*28)    ;   output_shape=(1, 100)
+net.add(FCLayer(88, 64))  # input_shape=(1, 88)    ;   output_shape=(1, 64)
 net.add(ActivationLayer(relu, relu_prime))
 net.add(FCLayer(64, 32))  # input_shape=(1, 100)      ;   output_shape=(1, 50)
 net.add(ActivationLayer(relu, relu_prime))
@@ -54,7 +55,7 @@ net.add(ActivationLayer(sig, sig_prime))
 
 
 net.use(bce, bce_prime)
-net.fit(x_train, y_train, epochs=100, learning_rate=0.1)
+net.fit(x_train, y_train, epochs=3, learning_rate=0.1)
 
 # test on 3 samples
 out = net.predict(x_test)
