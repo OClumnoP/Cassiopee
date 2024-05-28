@@ -3,21 +3,22 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 Patient = pd.read_csv(r"C:\Users\bajou\Documents\MIMIC\mimic-iii-clinical-database\PATIENTS.csv")
+Patient = Patient[['EXPIRE_FLAG']]
 
-Patient = Patient[['GENDER']]
-Male = 0
-Female = 0
+Dead = 0
+Alive = 0
+
 
 for i in range(Patient.shape[0]):
     value = Patient.iat[i, 0]
-    if value == 'F':
-        Female += 1
+    if value == 1:
+        Dead += 1
     else:
-        Male += 1
+        Alive += 1
 
-y = np.array([Male, Female])
-my_labels = ["Male", "Female"]
-my_colors = ["#1679AB", "#D24545"]
+y = np.array([Dead, Alive])
+my_labels = ["Dead", "Alive"]
+my_colors = ["#D24545", "#1679AB"]
 
 
 def func(pct, allvalues):
@@ -25,9 +26,9 @@ def func(pct, allvalues):
     return "{:.1f}%\n({:d})".format(pct, absolute)
 
 
-fig, ax = plt.subplots(figsize=(30, 20))
+fig, ax = plt.subplots(figsize=(7, 5))
 
 plt.pie(y, labels=my_labels, colors=my_colors, autopct=lambda pct: func(pct, y), )
-ax.set_title("Male / Female Repartition")
+ax.set_title("Death Repartition")
 
 plt.show()
