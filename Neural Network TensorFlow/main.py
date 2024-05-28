@@ -29,6 +29,7 @@ target = target.to_numpy()
 # x_test = x_test.reshape(x_test.shape[0], 1, 88)
 # y_test = y_test.reshape(y_test.shape[0], 1)
 
+#reshape data
 x = data.reshape(data.shape[0], 1, 88)
 y = target.reshape(target.shape[0], 1)
 
@@ -41,7 +42,7 @@ model.add(layers.Dense(8, activation="relu"))
 model.add(layers.Dense(4, activation="relu"))
 model.add(layers.Dense(1, activation='sigmoid'))
 
-model.summary()
+#model.summary()
 
 model.compile(
     optimizer="adam",
