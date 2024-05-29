@@ -1,4 +1,5 @@
 import keras
+import tensorflow as tf
 from keras import layers
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -23,6 +24,7 @@ x_train, x_test, y_train, y_test = train_test_split(
 # reshape input data
 x_train = x_train.reshape(x_train.shape[0], 1, 88)
 y_train = y_train.reshape(y_train.shape[0], 1)
+print(y_train)
 
 # same for test data
 x_test = x_test.reshape(x_test.shape[0], 1, 88)
@@ -42,10 +44,10 @@ model.summary()
 model.compile(
     optimizer="adam",
     loss="binary_crossentropy",
-    metrics=["accuracy"]
+    metrics=[tf.keras.metrics.BinaryAccuracy(), tf.keras.metrics.Precision(), tf.keras.metrics.Recall()]
 )
 
-model.fit(x_train, y_train, epochs=5)
+model.fit(x_train, y_train, epochs=100)
 model_weights = model.get_weights()
 
 test_loss, test_acc = model.evaluate(x_test, y_test, verbose=2)
