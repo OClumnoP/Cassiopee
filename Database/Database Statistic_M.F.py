@@ -25,7 +25,7 @@ def func(pct, allvalues):
     return "{:.1f}%\n({:d})".format(pct, absolute)
 
 
-fig, ax = plt.subplots(figsize=(5, 7))
+fig, ax = plt.subplots(figsize=(7, 5))
 
 plt.pie(y, labels=my_labels, colors=my_colors, autopct=lambda pct: func(pct, y), )
 ax.set_title("Male / Female Repartition")

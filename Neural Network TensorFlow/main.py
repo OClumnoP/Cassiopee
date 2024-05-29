@@ -1,8 +1,6 @@
 import keras
-import tensorflow as tf
 from keras import layers
 import pandas as pd
-from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 # load data on laptop
@@ -50,7 +48,7 @@ model.compile(
     metrics=[keras.metrics.BinaryAccuracy(), keras.metrics.Precision(), keras.metrics.Recall()]
 )
 
-history = model.fit(x, y, validation_split=0.33, epochs=100, shuffle=True)
+history = model.fit(x, y, validation_split=0.4, epochs=100, shuffle=True)
 model_weights = model.get_weights()
 
 print(history.history.keys())
