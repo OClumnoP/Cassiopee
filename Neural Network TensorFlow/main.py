@@ -4,10 +4,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # load data on laptop
-mimic = pd.read_csv(r"C:\Users\bajou\Documents\MIMIC\Table_out.csv")
+# mimic = pd.read_csv(r"C:\Users\bajou\Documents\MIMIC\Table_out.csv")
 
 # load data on computer
-# mimic = pd.read_csv(r"C:\Users\bajou\Documents\MIMIC\Code Python\Table_out.csv")
+mimic = pd.read_csv(r"C:\Users\bajou\Documents\MIMIC\Code Python\Table_out.csv")
 
 # separate data and target
 data, target = mimic.drop(columns=["SUBJECT_ID", "EXPIRE_FLAG", "'58177000111'"]), mimic["EXPIRE_FLAG"]
@@ -27,7 +27,7 @@ target = target.to_numpy()
 # x_test = x_test.reshape(x_test.shape[0], 1, 88)
 # y_test = y_test.reshape(y_test.shape[0], 1)
 
-#reshape data
+# reshape data
 x = data.reshape(data.shape[0], 1, 88)
 y = target.reshape(target.shape[0], 1)
 
@@ -36,11 +36,11 @@ model.add(keras.Input(shape=(1, 88)))
 model.add(layers.Dense(64, activation="relu"))
 model.add(layers.Dense(32, activation="relu"))
 model.add(layers.Dense(16, activation="relu"))
-model.add(layers.Dense(8, activation="relu"))
-model.add(layers.Dense(4, activation="relu"))
+#model.add(layers.Dense(8, activation="relu"))
+#model.add(layers.Dense(4, activation="relu"))
 model.add(layers.Dense(1, activation='sigmoid'))
 
-#model.summary()
+# model.summary()
 
 model.compile(
     optimizer="adam",
@@ -48,7 +48,7 @@ model.compile(
     metrics=[keras.metrics.BinaryAccuracy(), keras.metrics.Precision(), keras.metrics.Recall()]
 )
 
-history = model.fit(x, y, validation_split=0.4, epochs=100, shuffle=True)
+history = model.fit(x, y, validation_split=0.33, epochs=100, shuffle=False)
 model_weights = model.get_weights()
 
 print(history.history.keys())
